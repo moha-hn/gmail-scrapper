@@ -1,36 +1,47 @@
-# Email Pipeline (Gmail → JSON → Themed Clean JSON → PDF)
+# Gmail to JSON — Email Scraper (App Password)
 
-This repo contains **three independent scripts** that form a simple pipeline:
+This repository contains **one single Python script** whose only responsibility is:
 
-1) **Gmail → JSON**  
-   Connect to Gmail using an **App Password**, scrape emails for a **time range**, export to JSON.
+ **Connect to Gmail using an App Password, scrape emails for a given time range, and export them to a JSON file.**
 
-2) **JSON → Cleaned JSON (by theme)**  
-   Use the **OpenAI API** to normalize/clean/label the extracted emails by theme.
+No OpenAI.  
+No PDF.  
+One script. One job.
 
-3) **JSON → PDF**  
-   Convert JSON data into a readable PDF report.
+---
 
-Each script is independent by design (single responsibility).
+## What this script does
+
+- Connects to Gmail via **IMAP**
+- Authenticates using a **Gmail App Password**
+- Fetches emails between two dates
+- Extracts:
+  - message id
+  - date
+  - from
+  - to
+  - subject
+  - plain text body (when available)
+- Exports all emails into a structured **JSON file**
 
 ---
 
 ## Requirements
 
-- Python 3.10+
-- A Gmail account with **2FA enabled** (required for App Passwords)
-- An **App Password** generated in Google Account settings
-- (Script 2) An OpenAI API key
+- Python **3.10+**
+- A Gmail account with **2-Factor Authentication enabled**
+- A **Gmail App Password** (required — normal password will NOT work)
 
 ---
 
-## Setup
+## Gmail App Password setup
 
-### 1) Clone & install
-```bash
-git clone <your-repo-url>
-cd email-pipeline
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# venv\Scripts\activate   # Windows PowerShell
-pip install -r requirements.txt
+1. Go to your **Google Account**
+2. Enable **2-Step Verification**
+3. Open **App passwords**
+4. Create a new password for:
+   - App: Mail
+   - Device: Other
+5. Copy the **16-character password** (no spaces)
+
+---
